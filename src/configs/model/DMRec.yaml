@@ -1,0 +1,18 @@
+embedding_size: 64
+
+m_dropout: 0.5
+adj_dropout: 0.3
+tau: 0.1
+n_ho_layers: 1
+
+# grid search space
+n_ui_layers: [2, 4, 6, 8, 10]
+n_intents: [16, 32, 64, 128, 256]
+knn_k: [5, 10, 20]
+lamda_de: [0.6, 0.8, 1.0]
+lamda_int: [0.1, 0.3, 0.5]
+lamda_cl: [0.1, 0.3, 0.5]
+#hyper_parameters: ["n_ui_layers"]
+#hyper_parameters: ["n_intents", "knn_k"]
+#hyper_parameters: ["lamda_de", "lamda_in", "lamda_cl"]
+
