@@ -10,7 +10,7 @@ from src.common.abstract_recommender import GeneralRecommender
 
 
 
-class DMRec(GeneralRecommender):
+class SAMIL(GeneralRecommender):
     def __init__(self, config, dataset):
         super().__init__(config, dataset)
         self.config = config
@@ -35,9 +35,7 @@ class DMRec(GeneralRecommender):
 
         # 模态特征、UU图、II图初始化
         if self.v_feat is not None:
-            pca = PCA(n_components=512)
-            vision_features = pca.fit_transform(self.v_feat.cpu().numpy())
-            vision_features = torch.tensor(vision_features, dtype=torch.float32, device=self.device)
+            vision_features = torch.tensor(self.v_feat, dtype=torch.float32, device=self.device)
             self.i_v_emb = nn.Embedding.from_pretrained(vision_features, freeze=False)
             self.u_v_emb = nn.Embedding(self.n_users, self.emb_size).to(self.device)
             nn.init.xavier_normal_(self.u_v_emb.weight)
@@ -168,8 +166,8 @@ class DMRec(GeneralRecommender):
                            torch.matmul(u_mt_emb[uids], i_mt_emb.T),
                            torch.matmul(u_mc_emb[uids], i_mc_emb.T))]
 
-            scores_list = torch.stack(scores_list, dim=0)
-            scores = scores_list.sum(dim=0)
+            attn_weights = torch.softmax(scores_list, dim=0)
+            scores = (attn_weights * scores_list).sum(dim=0)
             return scores
 
     def sl_loss(self, users, pos_items, neg_items, temp=0.1):
