@@ -10,7 +10,7 @@ from src.common.abstract_recommender import GeneralRecommender
 
 
 
-class SAMIL(GeneralRecommender):
+class MDMIL(GeneralRecommender):
     def __init__(self, config, dataset):
         super().__init__(config, dataset)
         self.config = config

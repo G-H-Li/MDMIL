@@ -15,7 +15,7 @@ os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--model', '-m', type=str, default='LGMRec', help='name of models')
+    parser.add_argument('--model', '-m', type=str, default='MDMIL', help='name of models')
     parser.add_argument('--dataset', '-d', type=str, default='clothing', help='name of datasets')
     parser.add_argument('--mg', action="store_true", help='whether to use Mirror Gradient, default is False')
 
